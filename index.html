@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FaveVerse Chat</title>
+    <meta name="description" content="Chat with anime-inspired characters or create your own character and world." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand"><div class="brand-icon">FV</div><div><span class="eyebrow">YOUR STORY STARTS HERE</span><h1>FaveVerse</h1></div></div>
+        <nav class="tabs" aria-label="Main navigation">
+          <button class="tab active" data-view="characters">Characters</button>
+          <button class="tab" data-view="worlds">Worlds</button>
+          <button class="tab" data-view="create">Create</button>
+        </nav>
+        <section id="charactersView" class="side-view">
+          <div class="section-title"><h2>Your characters</h2><button class="text-button" id="newCharacter">+ New</button></div>
+          <div id="characterList" class="character-list"></div>
+        </section>
+        <section id="worldsView" class="side-view hidden">
+          <div class="section-title"><h2>Explore worlds</h2><button class="text-button" id="newWorld">+ New</button></div>
+          <div id="worldList" class="world-list"></div>
+        </section>
+        <section id="createView" class="side-view hidden">
+          <div class="section-title"><h2>Create something</h2></div>
+          <div class="form-switch"><button class="form-tab active" data-form="characterForm">Character</button><button class="form-tab" data-form="worldForm">World</button></div>
+          <form id="characterForm" class="create-form">
+            <label>Name<input name="name" placeholder="Aiko Ren" required maxlength="40" /></label>
+            <label>Personality<input name="vibe" placeholder="Brave, funny, secretly shy" required maxlength="90" /></label>
+            <label>World<input name="world" placeholder="Moonlit District" required maxlength="50" /></label>
+            <label>First message<textarea name="greeting" placeholder="Hey! I was hoping you'd show up..." required maxlength="220" rows="3"></textarea></label>
+            <button class="primary-button" type="submit">Create character</button>
+          </form>
+          <form id="worldForm" class="create-form hidden">
+            <label>World name<input name="name" placeholder="Skyglass Realm" required maxlength="50" /></label>
+            <label>What is it like?<textarea name="description" placeholder="Floating islands, ancient magic, and a city above the clouds..." required maxlength="220" rows="4"></textarea></label>
+            <button class="primary-button" type="submit">Create world</button>
+          </form>
+        </section>
+        <p class="sidebar-note">A little universe, made by you ✨</p>
+      </aside>
+      <main class="chat">
+        <header class="chat-header">
+          <div id="activeAvatar" class="avatar large">S</div>
+          <div class="chat-title"><span class="eyebrow">YOUR CURRENT STORY</span><h2 id="activeName">Sora Akemi</h2><p id="activeSubtitle">Warm, witty, brave · Neon Sakura</p></div>
+          <span class="demo-badge"><i></i> Demo mode</span>
+        </header>
+        <div class="chat-intro"><span>✦</span><p>This is your space to talk, dream, and make up a story together.</p><span>✦</span></div>
+        <section id="messages" class="messages" aria-live="polite" aria-label="Chat messages"></section>
+        <div class="suggestions" id="suggestions"><button>Tell me about your world</button><button>Let's go on an adventure</button><button>What are you like?</button></div>
+        <form id="chatForm" class="composer"><textarea id="messageInput" rows="1" maxlength="500" placeholder="Say something to Sora..."></textarea><button type="submit" aria-label="Send message">➤</button></form>
+        <p class="demo-note">Demo replies are scripted and stay on this device. No account or AI connection yet.</p>
+      </main>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
