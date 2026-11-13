@@ -3,59 +3,74 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FaveVerse Chat</title>
-    <meta name="description" content="Chat with anime-inspired characters or create your own character and world." />
+    <meta name="theme-color" content="#11101b" />
+    <title>FaveVerse — your story, your universe</title>
+    <meta name="description" content="Chat with anime-inspired characters and create your own worlds." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="app-shell">
       <aside class="sidebar">
-        <div class="brand"><div class="brand-icon">FV</div><div><span class="eyebrow">YOUR STORY STARTS HERE</span><h1>FaveVerse</h1></div></div>
-        <nav class="tabs" aria-label="Main navigation">
-          <button class="tab active" data-view="characters">Characters</button>
-          <button class="tab" data-view="worlds">Worlds</button>
-          <button class="tab" data-view="create">Create</button>
+        <a class="brand" href="#" aria-label="FaveVerse home"><span class="brand-icon">✳</span><span class="brand-name">fave<span>verse</span></span></a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <button class="nav-button active" data-view="characters"><span>✦</span> Discover</button>
+          <button class="nav-button" data-view="worlds"><span>◉</span> Worlds</button>
+          <button class="nav-button" data-view="create"><span>＋</span> Create</button>
         </nav>
         <section id="charactersView" class="side-view">
-          <div class="section-title"><h2>Your characters</h2><button class="text-button" id="newCharacter">+ New</button></div>
+          <div class="section-title"><h2>Your characters</h2><button class="icon-button" id="newCharacter" aria-label="Create character">＋</button></div>
           <div id="characterList" class="character-list"></div>
         </section>
         <section id="worldsView" class="side-view hidden">
-          <div class="section-title"><h2>Explore worlds</h2><button class="text-button" id="newWorld">+ New</button></div>
+          <div class="section-title"><h2>Your worlds</h2><button class="icon-button" id="newWorld" aria-label="Create world">＋</button></div>
           <div id="worldList" class="world-list"></div>
         </section>
         <section id="createView" class="side-view hidden">
-          <div class="section-title"><h2>Create something</h2></div>
+          <div class="section-title"><h2>Bring an idea to life</h2></div>
           <div class="form-switch"><button class="form-tab active" data-form="characterForm">Character</button><button class="form-tab" data-form="worldForm">World</button></div>
           <form id="characterForm" class="create-form">
+            <input type="hidden" name="id" />
             <label>Name<input name="name" placeholder="Aiko Ren" required maxlength="40" /></label>
-            <label>Personality<input name="vibe" placeholder="Brave, funny, secretly shy" required maxlength="90" /></label>
-            <label>World<input name="world" placeholder="Moonlit District" required maxlength="50" /></label>
-            <label>First message<textarea name="greeting" placeholder="Hey! I was hoping you'd show up..." required maxlength="220" rows="3"></textarea></label>
-            <button class="primary-button" type="submit">Create character</button>
+            <label>Personality<input name="vibe" placeholder="Brave, funny, secretly shy" required maxlength="120" /></label>
+            <label>World<input name="world" placeholder="Moonlit District" required maxlength="60" /></label>
+            <label>Backstory<textarea name="backstory" placeholder="What shaped your character? What do they want?" maxlength="600" rows="3"></textarea></label>
+            <label>First message<textarea name="greeting" placeholder="Hey! I was hoping you'd show up..." required maxlength="300" rows="3"></textarea></label>
+            <label>Avatar image URL <span class="optional">(optional)</span><input name="avatarUrl" type="url" placeholder="https://example.com/image.jpg" /></label>
+            <label class="upload-label">Or upload an avatar<input name="avatarFile" type="file" accept="image/png,image/jpeg,image/webp,image/gif" /></label>
+            <div class="form-actions"><button class="primary-button" type="submit">Create character</button><button class="secondary-button hidden" id="deleteCharacter" type="button">Delete</button></div>
           </form>
           <form id="worldForm" class="create-form hidden">
+            <input type="hidden" name="id" />
             <label>World name<input name="name" placeholder="Skyglass Realm" required maxlength="50" /></label>
-            <label>What is it like?<textarea name="description" placeholder="Floating islands, ancient magic, and a city above the clouds..." required maxlength="220" rows="4"></textarea></label>
-            <button class="primary-button" type="submit">Create world</button>
+            <label>What is it like?<textarea name="description" placeholder="Floating islands, ancient magic, and a city above the clouds..." required maxlength="500" rows="4"></textarea></label>
+            <div class="form-actions"><button class="primary-button" type="submit">Create world</button><button class="secondary-button hidden" id="deleteWorld" type="button">Delete</button></div>
           </form>
+          <p class="form-hint">Your creations are saved in this browser.</p>
         </section>
-        <p class="sidebar-note">A little universe, made by you ✨</p>
+        <section id="profileView" class="side-view hidden">
+          <div class="section-title"><h2>Character profile</h2></div>
+          <div id="profileCard" class="profile-card"></div>
+          <button id="editProfile" class="primary-button full-button">Edit character</button>
+          <p class="form-hint">Your character profile is private to this browser in this demo.</p>
+        </section>
+        <div class="sidebar-bottom"><span class="sidebar-sparkle">✦</span><p>Your imagination has no limits.</p><small>FaveVerse · Story mode</small></div>
       </aside>
       <main class="chat">
         <header class="chat-header">
-          <div id="activeAvatar" class="avatar large">S</div>
-          <div class="chat-title"><span class="eyebrow">YOUR CURRENT STORY</span><h2 id="activeName">Sora Akemi</h2><p id="activeSubtitle">Warm, witty, brave · Neon Sakura</p></div>
-          <span class="demo-badge"><i></i> Demo mode</span>
+          <div class="mobile-brand"><span class="brand-icon">✳</span> fave<span>verse</span></div>
+          <div class="header-character"><div id="activeAvatar" class="avatar large">S</div><div class="chat-title"><span class="eyebrow">YOUR STORY, TOGETHER</span><h2 id="activeName">Sora Akemi</h2><p id="activeSubtitle">Warm, witty, brave · Neon Sakura</p></div></div>
+          <button id="openProfile" class="profile-link">View profile <span>↗</span></button>
+          <span id="aiStatus" class="ai-status"><i></i><span>Checking AI…</span></span>
         </header>
-        <div class="chat-intro"><span>✦</span><p>This is your space to talk, dream, and make up a story together.</p><span>✦</span></div>
+        <div class="story-banner"><span class="banner-star">✦</span><span>Every great story begins with a hello.</span><span class="banner-star">✦</span></div>
         <section id="messages" class="messages" aria-live="polite" aria-label="Chat messages"></section>
+        <div class="typing-indicator hidden" id="typingIndicator"><span></span><span></span><span></span><em id="typingName">Sora is thinking…</em></div>
         <div class="suggestions" id="suggestions"><button>Tell me about your world</button><button>Let's go on an adventure</button><button>What are you like?</button></div>
-        <form id="chatForm" class="composer"><textarea id="messageInput" rows="1" maxlength="500" placeholder="Say something to Sora..."></textarea><button type="submit" aria-label="Send message">➤</button></form>
-        <p class="demo-note">Demo replies are scripted and stay on this device. No account or AI connection yet.</p>
+        <form id="chatForm" class="composer"><textarea id="messageInput" rows="1" maxlength="1000" placeholder="Say something to Sora..."></textarea><button type="submit" aria-label="Send message">↑</button></form>
+        <p class="demo-note">AI chat needs an owner-configured API key. Don't share sensitive personal information in chats.</p>
       </main>
     </div>
     <script src="app.js"></script>
